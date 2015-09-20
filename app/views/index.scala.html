@@ -1,0 +1,113 @@
+@import org.joda.time.format.DateTimeFormat
+@import java.text.DecimalFormat
+
+@(transactionList: List[models.Transaction],stockForm: Form[(String,String,String,Int)])
+
+@main(title = "Stock App") {
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header" style="font-size: 4px;">
+            <a class="navbar-brand" href="#">Stock - App</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="main-box">
+        <div class="operation-box">
+            <h4>Operations</h4>
+            <form method="POST" action="@routes.Application.transaction">
+                <div class="form-group">
+                    <label>Stock</label>
+                    <select name="stock" class="form-control">
+                        @models.Market.AvailableStocks.map { s =>
+                            <option value="@s.name">@s.name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Operation Date</label>
+                    <select name="opdate" class="form-control">
+                        @models.Market.getMarketOpenDays.map { d =>
+                        <option value="@DateTimeFormat.forPattern("dd-MMM-yy").print(d)">
+                            @DateTimeFormat.forPattern("dd-MMM-yy").print(d)
+                        </option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Operation</label>
+                    <select name="op" class="form-control">
+                        <option value="BUY">BUY</option>
+                        <option value="SELL">SELL</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="amountInput">Quantity</label>
+                    <input type="text" name="quantity" class="form-control" id="amountInput" placeholder="Quantity">
+                </div>
+
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+
+            <div style="margin-top:20px;">
+                @stockForm.errors.map { e =>
+
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    @e.messages.mkString(",")
+                </div>
+
+                }
+            </div>
+
+        </div>
+        <div class="table-box">
+            <h4>Transactions</h4>
+            <table class="table">
+                <thead>
+                <th>Stock</th>
+                <th>Op</th>
+                <th>Quantity</th>
+                <th>Operation Date</th>
+                <th>Currency</th>
+                <th>Price</th>
+                <th>Fix Rate</th>
+                <th>Total Cost</th>
+                <th>Profit/Loss</th>
+                <th>Cumulative Profit/Loss</th>
+                </thead>
+                <tbody>
+                @transactionList.map { t =>
+                <tr>
+                    <td>@t.stock.name</td>
+                    <td>@t.op.order</td>
+                    <td>@t.quantity</td>
+                    <td>@DateTimeFormat.forPattern("dd-MMM-yy").print(t.opDate)</td>
+                    <td>@t.stock.currency.name</td>
+                    <td>@t.stock.price</td>
+                    <td>@t.fx.rate</td>
+
+                    @defining(new DecimalFormat("#.####")) { formatter =>
+
+                    <td>@formatter.format(t.getTotalAmount)</td>
+                    @t.stat match {
+                        case Some(s) => {
+                            <td>@formatter.format(s.current)</td>
+                            <td>@formatter.format(s.cumulative)</td> }
+                        case _ => { }
+                    }
+                    }
+                </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div><!-- /.container -->
+
+}
