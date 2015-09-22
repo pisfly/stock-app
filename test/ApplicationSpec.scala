@@ -9,7 +9,7 @@ import play.api.test.Helpers._
 /**
  * Functional tests for Stock App
  * It tests api through fake requests 
- **/
+ */
 @RunWith(classOf[JUnitRunner])
 class ApplicationSpec extends Specification {
 
