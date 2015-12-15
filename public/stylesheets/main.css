@@ -1,0 +1,19 @@
+.main-box {
+  padding-top:80px;
+  padding-bottom: 40px;
+}
+
+.operation-box {
+  float:left;
+  width:240px;
+}
+
+.table-box {
+  float:left;
+  width:680;
+  padding-left: 40px;
+}
+
+.table {
+  font-size:13px;
+}

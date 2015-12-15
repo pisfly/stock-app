@@ -1,0 +1,26 @@
+@import org.joda.time.format.DateTimeFormat
+@import java.text.DecimalFormat
+
+@v1main(title = "Stock App") {
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header" style="font-size: 4px;">
+            <a class="navbar-brand" href="#">Stock - App</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container" ng-controller="TransactionController">
+
+    <div class="main-box">
+        <div ng-include src="'pages/form.html'"></div>
+        <div ng-include src="'pages/list.html'">
+
+        </div>
+
+    </div>
+
+</div><!-- /.container -->
+
+}

@@ -17,7 +17,10 @@ case class Stat(current: Double, cumulative: Double)
 
 object Transaction {
 
-  val transactionParser = get[DateTime]("op_date") ~
+  val SELECT_SQL = "SELECT * FROM user_transaction ORDER BY op_date DESC"
+
+  val transactionParser =
+    get[DateTime]("op_date") ~
     get[String]("name") ~
     get[String]("operation") ~
     get[Int]("quantity") ~
@@ -43,12 +46,8 @@ object Transaction {
   }
 
   def getAll: List[Transaction] = {
-
     DB.withConnection { implicit connection =>
-        SQL(
-          """
-          |SELECT * FROM user_transaction ORDER BY op_date DESC
-        """.stripMargin)
+        SQL(SELECT_SQL)
         .as(transactionParser *)
     }
   }

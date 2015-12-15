@@ -1,0 +1,35 @@
+<div class="operation-box">
+    <h4>Operations</h4>
+    <form method="POST" name="transactionForm" ng-submit="submit(transaction,transactionForm)">
+        <div class="form-group">
+            <label>Stock</label>
+            <select name="stock" class="form-control" ng-model="transaction.stock">
+                <option ng-repeat="s in metaData.availableStocks" value="{{ s.name }}">{{ s.name }}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Operation Date</label>
+            <select name="opdate" class="form-control" ng-model="transaction.opdate">
+                <option ng-repeat="d in metaData.openDays" value="{{ d }}">{{ d }}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Operation</label>
+            <select name="op" class="form-control" ng-model="transaction.op">
+                <option value="BUY">BUY</option>
+                <option value="SELL">SELL</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="amountInput">Quantity</label>
+            <input type="number" name="quantity" class="form-control" ng-model="transaction.quantity" id="amountInput" placeholder="Quantity">
+        </div>
+
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+
+    <div style="margin-top:20px;">
+
+    </div>
+
+</div>

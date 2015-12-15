@@ -1,0 +1,35 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+
+<html ng-app="stockApp"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Stock - App</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="@routes.Assets.versioned("bower_components/bootstrap/dist/css/bootstrap.min.css")" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="@routes.Assets.versioned("stylesheets/main.css")" rel="stylesheet">
+</head>
+
+<body>
+
+@content
+<!-- Bootstrap core JavaScript
+   ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="@routes.Assets.versioned("bower_components/jquery/dist/jquery.min.js")"></script>
+<script src="@routes.Assets.versioned("bower_components/bootstrap/dist/js/bootstrap.min.js")"></script>
+<script src="@routes.Assets.versioned("bower_components/angular/angular.min.js")" type="text/javascript"></script>
+<script src="@routes.Assets.versioned("bower_components/angular-resource/angular-resource.min.js")" type="text/javascript"></script>
+<script src="@routes.Assets.versioned("javascripts/app.js")"></script>
+
+
+</body>
+</html>

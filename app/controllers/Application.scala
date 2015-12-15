@@ -5,6 +5,7 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.data._
 import play.api.data.Forms._
+import play.api.libs.json.Reads
 import play.api.mvc._
 import service.TransactionService
 
@@ -25,6 +26,10 @@ class Application extends Controller {
       "quantity" -> number
     )
   )
+
+  def v1 = Action {
+    Ok(views.html.v1index())
+  }
 
   def index = Action {
     val transactionList = Transaction.getAll
